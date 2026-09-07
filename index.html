@@ -4,17 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Min portfolio</title>
+  <title>CYBER//PORTFOLIO</title>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
+
     :root {
-      --bg: #0b1020;
-      --card: #151c32;
-      --text: #f5f7ff;
-      --muted: #aab3cc;
-      --accent: #4ade80;
-      --accent-dark: #22c55e;
-      --border: rgba(255, 255, 255, 0.1);
+      --bg: #050510;
+      --panel: #0b0b1a;
+      --cyan: #00f7ff;
+      --pink: #ff00a8;
+      --purple: #9d00ff;
+      --green: #39ff88;
+      --text: #e9faff;
+      --muted: #8290a8;
     }
 
     * {
@@ -28,40 +31,556 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family: 'Orbitron', monospace;
       background:
-        radial-gradient(circle at top right, rgba(74, 222, 128, 0.12), transparent 30%),
+        radial-gradient(circle at 20% 20%, rgba(157, 0, 255, .15), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(0, 247, 255, .1), transparent 30%),
         var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Cyberpunk scanlines */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.015) 0px,
+        rgba(255,255,255,.015) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    }
+
+    /* Neon grid */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,247,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,247,255,.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: linear-gradient(to bottom, black, transparent);
     }
 
     .container {
-      width: min(100% - 40px, 900px);
+      width: min(1100px, calc(100% - 40px));
       margin: auto;
+      position: relative;
+      z-index: 2;
     }
 
+    /* NAVIGATION */
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 0;
+      background: rgba(5,5,16,.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,247,255,.2);
+      z-index: 100;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: var(--cyan);
+      font-weight: 800;
+      text-shadow: 0 0 12px var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .8rem;
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--pink);
+      text-shadow: 0 0 10px var(--pink);
+    }
+
+    /* HERO */
+
     header {
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      text-align: center;
+      padding-top: 80px;
     }
 
     .hero {
-      width: 100%;
+      text-align: center;
     }
 
-    .badge {
+    .status {
       display: inline-block;
-      padding: 6px 12px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--accent);
-      font-size: 0.9rem;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 8px 15px;
+      margin-bottom: 30px;
+      font-size: .7rem;
+      box-shadow: 0 0 15px rgba(57,255,136,.2);
     }
 
     h1 {
-      font-size: clamp
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 25px;
+      color: white;
+      text-shadow:
+        0 0 5px white,
+        0 0 20px var(--cyan),
+        0 0 40px var(--cyan);
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .glitch::before {
+      color: var(--pink);
+      transform: translate(3px, 0);
+      clip-path: polygon(0 0,100% 0,100% 35%,0 35%);
+      animation: glitch 2s infinite;
+    }
+
+    .glitch::after {
+      color: var(--cyan);
+      transform: translate(-3px, 0);
+      clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%);
+      animation: glitch 1.7s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% {
+        transform: translate(0);
+      }
+      92% {
+        transform: translate(6px, -2px);
+      }
+      94% {
+        transform: translate(-6px, 2px);
+      }
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--muted);
+      line-height: 1.8;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+
+    .hero p span {
+      color: var(--cyan);
+    }
+
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      padding: 14px 25px;
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 700;
+      transition: .2s;
+      clip-path: polygon(
+        8px 0,
+        100% 0,
+        100% calc(100% - 8px),
+        calc(100% - 8px) 100%,
+        0 100%,
+        0 8px
+      );
+    }
+
+    .primary {
+      background: var(--cyan);
+      color: #020208;
+      box-shadow: 0 0 20px rgba(0,247,255,.5);
+    }
+
+    .secondary {
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      box-shadow: inset 0 0 15px rgba(255,0,168,.1);
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+      filter: brightness(1.3);
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--cyan);
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px rgba(0,247,255,.5);
+    }
+
+    .section-title::before {
+      content: "// ";
+      color: var(--pink);
+    }
+
+    /* PROJECTS */
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .project {
+      position: relative;
+      padding: 30px;
+      background: linear-gradient(
+        145deg,
+        rgba(11,11,26,.95),
+        rgba(20,10,35,.8)
+      );
+      border: 1px solid rgba(0,247,255,.25);
+      transition: .3s;
+      overflow: hidden;
+    }
+
+    .project::before {
+      content: "SYSTEM//PROJECT";
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: rgba(0,247,255,.25);
+      font-size: .55rem;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      border-color: var(--pink);
+      box-shadow:
+        0 0 20px rgba(255,0,168,.15),
+        inset 0 0 20px rgba(0,247,255,.05);
+    }
+
+    .project-number {
+      color: var(--pink);
+      font-size: .7rem;
+      margin-bottom: 15px;
+    }
+
+    .project h3 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .project p {
+      color: var(--muted);
+      font-family: monospace;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .project a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: .75rem;
+    }
+
+    .project a:hover {
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* ABOUT */
+
+    .terminal {
+      background: #030307;
+      border: 1px solid rgba(57,255,136,.3);
+      padding: 25px;
+      font-family: monospace;
+      box-shadow: 0 0 25px rgba(57,255,136,.08);
+    }
+
+    .terminal-top {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .terminal p {
+      color: var(--green);
+      line-height: 2;
+    }
+
+    .terminal .command {
+      color: var(--cyan);
+    }
+
+    /* CONTACT */
+
+    .contact {
+      text-align: center;
+      border: 1px solid rgba(255,0,168,.3);
+      padding: 60px 25px;
+      background: rgba(255,0,168,.03);
+    }
+
+    .contact h2 {
+      color: var(--pink);
+      text-shadow: 0 0 15px rgba(255,0,168,.5);
+      margin-bottom: 20px;
+    }
+
+    .email {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 20px;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+      text-decoration: none;
+      font-family: monospace;
+      box-shadow: 0 0 15px rgba(0,247,255,.15);
+    }
+
+    .email:hover {
+      background: var(--cyan);
+      color: #050510;
+      box-shadow: 0 0 30px rgba(0,247,255,.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #4d5870;
+      font-family: monospace;
+      font-size: .7rem;
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 25px, 1100px);
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: .65rem;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">CYBER//2077</div>
+
+      <ul class="nav-links">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="home">
+    <div class="container hero">
+
+      <div class="status">
+        ● SYSTEM ONLINE
+      </div>
+
+      <h1>
+        <span
+          class="glitch"
+          data-text="SUG MEG"
+        >SUG MEG</span>
+      </h1>
+
+      <p>
+        Velkommen til min digitale base.<br>
+        Jeg bygger ting i <span>cyberspace</span>,
+        eksperimenterer med teknologi og utforsker
+        fremtidens digitale verden.
+      </p>
+
+      <div class="buttons">
+        <a href="#projects" class="button primary">
+          [ ACCESS PROJECTS ]
+        </a>
+
+        <a href="#contact" class="button secondary">
+          [ CONTACT ME ]
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="projects">
+
+      <h2 class="section-title">PROJECTS</h2>
+
+      <div class="projects">
+
+        <article class="project">
+          <div class="project-number">PROJECT_001</div>
+
+          <h3>Neon Network</h3>
+
+          <p>
+            Et futuristisk webprosjekt inspirert av
+            neonbyer, cyberspace og digital teknologi.
+          </p>
+
+          <a href="#">ENTER PROJECT →</a>
+        </article>
+
+        <article class="project">
+          <div class="project-number">PROJECT_002</div>
+
+          <h3>Cyber Terminal</h3>
+
+          <p>
+            En interaktiv terminal med retro-futuristisk
+            design og hacker-inspirert brukergrensesnitt.
+          </p>
+
+          <a href="#">ENTER PROJECT →</a>
+        </article>
+
+        <article class="project">
+          <div class="project-number">PROJECT_003</div>
+
+          <h3>Night City</h3>
+
+          <p>
+            Et eksperimentelt prosjekt med neon,
+            animasjoner og en mørk cyberpunk-atmosfære.
+          </p>
+
+          <a href="#">ENTER PROJECT →</a>
+        </article>
+
+      </div>
+
+    </section>
+
+    <section id="about">
+
+      <h2 class="section-title">ABOUT</h2>
+
+      <div class="terminal">
+
+        <div class="terminal-top">
+          root@cyber-terminal:~$ ./about_me
+        </div>
+
+        <p>
+          <span class="command">></span> Loading profile...
+        </p>
+
+        <p>
+          <span class="command">></span> Name: Sug Meg
+        </p>
+
+        <p>
+          <span class="command">></span> Status: ONLINE
+        </p>
+
+        <p>
+          <span class="command">></span> Location: NIGHT CITY
+        </p>
+
+        <p>
+          <span class="command">></span> Mission:
+          Build the future.
+        </p>
+
+        <p>
+          <span class="command">></span> Connection:
+          SECURE
+        </p>
+
+      </div>
+
+    </section>
+
+    <section id="contact">
+
+      <div class="contact">
+
+        <h2>ESTABLISH CONNECTION</h2>
+
+        <p>
+          Klar for å koble deg til?
+        </p>
+
+        <a
+          class="email"
+          href="mailto:sugen@kuk.no"
+        >
+          sugen@kuk.no
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    &lt;/&gt; CYBER//2077 — SYSTEM ONLINE — © 2026
+  </footer>
+
+</body>
+</html>
