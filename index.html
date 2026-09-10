@@ -4,96 +4,207 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Min portfolio</title>
-  <title>CYBER//PORTFOLIO</title>
+  <title>CYBER//2077 — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
-
     :root {
-      --bg: #0b1020;
-      --card: #151c32;
-      --text: #f5f7ff;
-      --muted: #aab3cc;
-      --accent: #4ade80;
-      --accent-dark: #22c55e;
-      --border: rgba(255, 255, 255, 0.1);
-      --bg: #050510;
-      --panel: #0b0b1a;
+      --bg: #03030a;
+      --panel: rgba(8, 10, 25, .85);
       --cyan: #00f7ff;
       --pink: #ff00a8;
       --purple: #9d00ff;
       --green: #39ff88;
-      --text: #e9faff;
-      --muted: #8290a8;
+      --white: #f2ffff;
+      --muted: #7d8aa5;
     }
 
     * {
-@@ -28,40 +31,556 @@
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      font-family: 'Orbitron', monospace;
-      background:
-        radial-gradient(circle at top right, rgba(74, 222, 128, 0.12), transparent 30%),
-        radial-gradient(circle at 20% 20%, rgba(157, 0, 255, .15), transparent 30%),
-        radial-gradient(circle at 80% 70%, rgba(0, 247, 255, .1), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      font-family: "Orbitron", monospace;
+      background: var(--bg);
+      color: var(--white);
       min-height: 100vh;
       overflow-x: hidden;
+      cursor: crosshair;
     }
 
-    /* Cyberpunk scanlines */
+    /* =========================
+       BACKGROUND
+    ========================= */
+
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      pointer-events: none;
       z-index: 999;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,.015) 0px,
-        rgba(255,255,255,.015) 1px,
-        transparent 1px,
-        transparent 4px
-      );
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.025) 0px,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: overlay;
     }
 
-    /* Neon grid */
     body::after {
       content: "";
       position: fixed;
       inset: 0;
+      z-index: -3;
       pointer-events: none;
+
       background-image:
-        linear-gradient(rgba(0,247,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,247,255,.04) 1px, transparent 1px);
+        linear-gradient(rgba(0,247,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,247,255,.035) 1px, transparent 1px);
+
       background-size: 50px 50px;
-      mask-image: linear-gradient(to bottom, black, transparent);
+
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+      );
+
+      animation: gridMove 15s linear infinite;
     }
 
+    @keyframes gridMove {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 0 50px;
+      }
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -4;
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(157,0,255,.20),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 85% 30%,
+          rgba(0,247,255,.15),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(255,0,168,.12),
+          transparent 30%
+        );
+      animation: ambientPulse 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientPulse {
+      from {
+        filter: brightness(.8);
+      }
+      to {
+        filter: brightness(1.35);
+      }
+    }
+
+    /* =========================
+       PARTICLES
+    ========================= */
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: float 8s linear infinite;
+    }
+
+    .particle:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 15%; animation-delay: 2s; }
+    .particle:nth-child(3) { left: 28%; animation-delay: 4s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+    .particle:nth-child(5) { left: 55%; animation-delay: 3s; }
+    .particle:nth-child(6) { left: 68%; animation-delay: 5s; }
+    .particle:nth-child(7) { left: 80%; animation-delay: 2s; }
+    .particle:nth-child(8) { left: 92%; animation-delay: 6s; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
     .container {
-      width: min(100% - 40px, 900px);
       width: min(1100px, calc(100% - 40px));
       margin: auto;
       position: relative;
       z-index: 2;
     }
 
-    /* NAVIGATION */
+    /* =========================
+       NAV
+    ========================= */
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 20px 0;
-      background: rgba(5,5,16,.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,247,255,.2);
       z-index: 100;
+      padding: 18px 0;
+
+      background: rgba(3,3,10,.65);
+      backdrop-filter: blur(15px);
+
+      border-bottom: 1px solid rgba(0,247,255,.25);
+
+      box-shadow:
+        0 0 30px rgba(0,247,255,.05);
     }
 
     .nav-inner {
@@ -104,8 +215,29 @@
 
     .logo {
       color: var(--cyan);
-      font-weight: 800;
-      text-shadow: 0 0 12px var(--cyan);
+      font-weight: 900;
+      letter-spacing: 2px;
+
+      text-shadow:
+        0 0 5px var(--cyan),
+        0 0 20px var(--cyan);
+
+      animation: logoPulse 2s infinite alternate;
+    }
+
+    @keyframes logoPulse {
+      from {
+        text-shadow:
+          0 0 5px var(--cyan),
+          0 0 10px var(--cyan);
+      }
+
+      to {
+        text-shadow:
+          0 0 5px var(--cyan),
+          0 0 30px var(--cyan),
+          0 0 50px var(--cyan);
+      }
     }
 
     .nav-links {
@@ -117,64 +249,93 @@
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: .8rem;
-      transition: .2s;
+      font-size: .7rem;
+      position: relative;
+      transition: .3s;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--pink);
+      box-shadow: 0 0 10px var(--pink);
+      transition: .3s;
     }
 
     .nav-links a:hover {
       color: var(--pink);
-      text-shadow: 0 0 10px var(--pink);
+      text-shadow: 0 0 12px var(--pink);
     }
 
-    /* HERO */
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
 
     header {
-      min-height: 90vh;
       min-height: 100vh;
       display: flex;
       align-items: center;
+      justify-content: center;
       text-align: center;
       padding-top: 80px;
     }
 
     .hero {
       width: 100%;
-      text-align: center;
     }
 
-    .badge {
     .status {
       display: inline-block;
-      padding: 6px 12px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--accent);
-      font-size: 0.9rem;
       color: var(--green);
       border: 1px solid var(--green);
-      padding: 8px 15px;
+      padding: 8px 16px;
       margin-bottom: 30px;
-      font-size: .7rem;
-      box-shadow: 0 0 15px rgba(57,255,136,.2);
+      font-size: .65rem;
+
+      box-shadow:
+        0 0 15px rgba(57,255,136,.15),
+        inset 0 0 15px rgba(57,255,136,.05);
+
+      animation: statusPulse 1.5s infinite alternate;
+    }
+
+    @keyframes statusPulse {
+      from {
+        opacity: .65;
+      }
+
+      to {
+        opacity: 1;
+        box-shadow:
+          0 0 25px rgba(57,255,136,.4),
+          inset 0 0 15px rgba(57,255,136,.1);
+      }
     }
 
     h1 {
-      font-size: clamp
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      line-height: 1;
-      margin-bottom: 25px;
-      color: white;
-      text-shadow:
-        0 0 5px white,
-        0 0 20px var(--cyan),
-        0 0 40px var(--cyan);
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: .9;
+      margin-bottom: 35px;
+      letter-spacing: -4px;
     }
 
     .glitch {
       position: relative;
       display: inline-block;
+      color: white;
+
+      text-shadow:
+        0 0 5px white,
+        0 0 20px var(--cyan),
+        0 0 50px var(--cyan);
     }
 
     .glitch::before,
@@ -187,27 +348,55 @@
 
     .glitch::before {
       color: var(--pink);
-      transform: translate(3px, 0);
-      clip-path: polygon(0 0,100% 0,100% 35%,0 35%);
-      animation: glitch 2s infinite;
+      transform: translate(3px);
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 35%,
+        0 35%
+      );
+
+      animation: glitchTop 2s infinite;
     }
 
     .glitch::after {
       color: var(--cyan);
-      transform: translate(-3px, 0);
-      clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%);
-      animation: glitch 1.7s infinite;
+      transform: translate(-3px);
+      clip-path: polygon(
+        0 65%,
+        100% 65%,
+        100% 100%,
+        0 100%
+      );
+
+      animation: glitchBottom 1.5s infinite;
     }
 
-    @keyframes glitch {
+    @keyframes glitchTop {
       0%, 90%, 100% {
         transform: translate(0);
       }
+
       92% {
-        transform: translate(6px, -2px);
+        transform: translate(12px, -3px);
       }
+
       94% {
-        transform: translate(-6px, 2px);
+        transform: translate(-8px, 2px);
+      }
+    }
+
+    @keyframes glitchBottom {
+      0%, 90%, 100% {
+        transform: translate(0);
+      }
+
+      93% {
+        transform: translate(-12px, 3px);
+      }
+
+      95% {
+        transform: translate(7px, -2px);
       }
     }
 
@@ -215,67 +404,104 @@
       max-width: 700px;
       margin: auto;
       color: var(--muted);
-      line-height: 1.8;
       font-family: monospace;
+      line-height: 1.9;
       font-size: 1rem;
     }
 
     .hero p span {
       color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
     }
 
+    /* =========================
+       BUTTONS
+    ========================= */
+
     .buttons {
-      margin-top: 40px;
+      margin-top: 45px;
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 18px;
       flex-wrap: wrap;
     }
 
     .button {
-      padding: 14px 25px;
+      position: relative;
+      padding: 15px 28px;
       text-decoration: none;
-      font-size: .8rem;
-      font-weight: 700;
-      transition: .2s;
+      font-size: .7rem;
+      font-weight: 800;
+      transition: .25s;
+      overflow: hidden;
+
       clip-path: polygon(
-        8px 0,
+        10px 0,
         100% 0,
-        100% calc(100% - 8px),
-        calc(100% - 8px) 100%,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
         0 100%,
-        0 8px
+        0 10px
       );
+    }
+
+    .button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.5),
+        transparent
+      );
+      transition: .5s;
+    }
+
+    .button:hover::before {
+      left: 100%;
     }
 
     .primary {
       background: var(--cyan);
       color: #020208;
-      box-shadow: 0 0 20px rgba(0,247,255,.5);
+      box-shadow:
+        0 0 15px var(--cyan),
+        0 0 40px rgba(0,247,255,.3);
     }
 
     .secondary {
       color: var(--pink);
       border: 1px solid var(--pink);
-      box-shadow: inset 0 0 15px rgba(255,0,168,.1);
+      box-shadow:
+        inset 0 0 15px rgba(255,0,168,.08),
+        0 0 10px rgba(255,0,168,.15);
     }
 
     .button:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px) scale(1.03);
       filter: brightness(1.3);
     }
 
-    /* SECTIONS */
+    /* =========================
+       SECTIONS
+    ========================= */
 
     section {
-      padding: 100px 0;
+      padding: 120px 0;
     }
 
     .section-title {
       font-size: 1.8rem;
       color: var(--cyan);
-      margin-bottom: 40px;
-      text-shadow: 0 0 15px rgba(0,247,255,.5);
+      margin-bottom: 45px;
+
+      text-shadow:
+        0 0 10px var(--cyan),
+        0 0 25px rgba(0,247,255,.4);
     }
 
     .section-title::before {
@@ -283,80 +509,133 @@
       color: var(--pink);
     }
 
-    /* PROJECTS */
+    /* =========================
+       PROJECTS
+    ========================= */
 
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+      );
       gap: 25px;
     }
 
     .project {
       position: relative;
       padding: 30px;
-      background: linear-gradient(
-        145deg,
-        rgba(11,11,26,.95),
-        rgba(20,10,35,.8)
-      );
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(8,10,25,.95),
+          rgba(20,5,35,.8)
+        );
+
       border: 1px solid rgba(0,247,255,.25);
-      transition: .3s;
+
+      transition: .4s;
       overflow: hidden;
+
+      transform-style: preserve-3d;
     }
 
     .project::before {
       content: "SYSTEM//PROJECT";
       position: absolute;
-      top: 10px;
+      top: 12px;
       right: 15px;
       color: rgba(0,247,255,.25);
-      font-size: .55rem;
+      font-size: .5rem;
+    }
+
+    .project::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: -50px;
+      left: -50px;
+      background: var(--cyan);
+      filter: blur(70px);
+      opacity: .1;
+      transition: .4s;
     }
 
     .project:hover {
-      transform: translateY(-8px);
+      transform:
+        translateY(-12px)
+        perspective(600px)
+        rotateX(2deg)
+        rotateY(-2deg);
+
       border-color: var(--pink);
+
       box-shadow:
-        0 0 20px rgba(255,0,168,.15),
-        inset 0 0 20px rgba(0,247,255,.05);
+        0 0 20px rgba(255,0,168,.25),
+        0 0 60px rgba(255,0,168,.08),
+        inset 0 0 25px rgba(0,247,255,.08);
+    }
+
+    .project:hover::after {
+      opacity: .35;
+      transform: scale(2);
     }
 
     .project-number {
       color: var(--pink);
-      font-size: .7rem;
-      margin-bottom: 15px;
+      font-size: .65rem;
+      margin-bottom: 18px;
     }
 
     .project h3 {
       color: white;
       margin-bottom: 15px;
+      font-size: 1.1rem;
     }
 
     .project p {
       color: var(--muted);
       font-family: monospace;
-      line-height: 1.7;
-      margin-bottom: 20px;
+      line-height: 1.8;
+      margin-bottom: 25px;
     }
 
     .project a {
       color: var(--cyan);
       text-decoration: none;
-      font-size: .75rem;
+      font-size: .65rem;
+      transition: .2s;
     }
 
     .project a:hover {
-      text-shadow: 0 0 10px var(--cyan);
+      color: white;
+      text-shadow: 0 0 15px var(--cyan);
     }
 
-    /* ABOUT */
+    /* =========================
+       TERMINAL
+    ========================= */
 
     .terminal {
-      background: #030307;
-      border: 1px solid rgba(57,255,136,.3);
-      padding: 25px;
+      position: relative;
+      background: rgba(2,3,7,.95);
+      border: 1px solid rgba(57,255,136,.35);
+      padding: 30px;
       font-family: monospace;
-      box-shadow: 0 0 25px rgba(57,255,136,.08);
+
+      box-shadow:
+        0 0 30px rgba(57,255,136,.08),
+        inset 0 0 40px rgba(57,255,136,.025);
+    }
+
+    .terminal::before {
+      content: "● ● ●";
+      display: block;
+      color: #ff375f;
+      letter-spacing: 5px;
+      margin-bottom: 25px;
     }
 
     .terminal-top {
@@ -371,47 +650,143 @@
 
     .terminal .command {
       color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan);
     }
 
-    /* CONTACT */
+    .typing {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--green);
+      animation:
+        typing 3s steps(35) 1s both,
+        cursor .7s infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 35ch;
+      }
+    }
+
+    @keyframes cursor {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
 
     .contact {
+      position: relative;
       text-align: center;
-      border: 1px solid rgba(255,0,168,.3);
-      padding: 60px 25px;
-      background: rgba(255,0,168,.03);
+      padding: 70px 25px;
+
+      border: 1px solid rgba(255,0,168,.35);
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(255,0,168,.08),
+          transparent 60%
+        );
+
+      overflow: hidden;
+    }
+
+    .contact::before,
+    .contact::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 1px;
+      background: var(--pink);
+      box-shadow: 0 0 20px var(--pink);
+      animation: scan 4s linear infinite;
+    }
+
+    .contact::before {
+      top: 0;
+      left: 0;
+    }
+
+    .contact::after {
+      bottom: 0;
+      right: 0;
+      animation-delay: 2s;
+    }
+
+    @keyframes scan {
+      from {
+        transform: translateX(-200px);
+      }
+
+      to {
+        transform: translateX(1000px);
+      }
     }
 
     .contact h2 {
       color: var(--pink);
-      text-shadow: 0 0 15px rgba(255,0,168,.5);
+      text-shadow:
+        0 0 10px var(--pink),
+        0 0 30px rgba(255,0,168,.5);
+
       margin-bottom: 20px;
+    }
+
+    .contact p {
+      color: var(--muted);
     }
 
     .email {
       display: inline-block;
-      margin-top: 25px;
-      padding: 14px 20px;
+      margin-top: 30px;
+      padding: 15px 25px;
+
       color: var(--cyan);
       border: 1px solid var(--cyan);
       text-decoration: none;
       font-family: monospace;
-      box-shadow: 0 0 15px rgba(0,247,255,.15);
+
+      box-shadow:
+        0 0 15px rgba(0,247,255,.15);
+
+      transition: .3s;
     }
 
     .email:hover {
       background: var(--cyan);
       color: #050510;
-      box-shadow: 0 0 30px rgba(0,247,255,.5);
+
+      box-shadow:
+        0 0 20px var(--cyan),
+        0 0 50px rgba(0,247,255,.4);
+
+      transform: scale(1.05);
     }
+
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
       text-align: center;
-      padding: 40px 0;
-      color: #4d5870;
+      padding: 50px 0;
+      color: #46516a;
       font-family: monospace;
-      font-size: .7rem;
+      font-size: .65rem;
     }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 650px) {
       .container {
@@ -423,11 +798,27 @@
       }
 
       .nav-links a {
-        font-size: .65rem;
+        font-size: .55rem;
+      }
+
+      .logo {
+        font-size: .75rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 18vw, 5rem);
+        letter-spacing: -3px;
       }
 
       section {
-        padding: 70px 0;
+        padding: 80px 0;
+      }
+
+      .typing {
+        max-width: 100%;
+        white-space: normal;
+        border-right: none;
+        animation: none;
       }
     }
   </style>
@@ -435,9 +826,26 @@
 
 <body>
 
+  <div class="ambient"></div>
+
+  <div class="particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
+
+  <!-- NAV -->
   <nav>
     <div class="container nav-inner">
-      <div class="logo">CYBER//2077</div>
+
+      <div class="logo">
+        CYBER//2077
+      </div>
 
       <ul class="nav-links">
         <li><a href="#home">HOME</a></li>
@@ -445,10 +853,13 @@
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
+
     </div>
   </nav>
 
+  <!-- HERO -->
   <header id="home">
+
     <div class="container hero">
 
       <div class="status">
@@ -459,17 +870,21 @@
         <span
           class="glitch"
           data-text="SUG MEG"
-        >SUG MEG</span>
+        >
+          SUG MEG
+        </span>
       </h1>
 
       <p>
         Velkommen til min digitale base.<br>
-        Jeg bygger ting i <span>cyberspace</span>,
+        Jeg bygger ting i
+        <span>cyberspace</span>,
         eksperimenterer med teknologi og utforsker
         fremtidens digitale verden.
       </p>
 
       <div class="buttons">
+
         <a href="#projects" class="button primary">
           [ ACCESS PROJECTS ]
         </a>
@@ -477,65 +892,97 @@
         <a href="#contact" class="button secondary">
           [ CONTACT ME ]
         </a>
+
       </div>
 
     </div>
+
   </header>
 
   <main class="container">
 
+    <!-- PROJECTS -->
     <section id="projects">
 
-      <h2 class="section-title">PROJECTS</h2>
+      <h2 class="section-title">
+        PROJECTS
+      </h2>
 
       <div class="projects">
 
         <article class="project">
-          <div class="project-number">PROJECT_001</div>
 
-          <h3>Neon Network</h3>
+          <div class="project-number">
+            PROJECT_001
+          </div>
+
+          <h3>
+            Neon Network
+          </h3>
 
           <p>
             Et futuristisk webprosjekt inspirert av
             neonbyer, cyberspace og digital teknologi.
           </p>
 
-          <a href="#">ENTER PROJECT →</a>
+          <a href="#">
+            ENTER PROJECT →
+          </a>
+
         </article>
 
         <article class="project">
-          <div class="project-number">PROJECT_002</div>
 
-          <h3>Cyber Terminal</h3>
+          <div class="project-number">
+            PROJECT_002
+          </div>
+
+          <h3>
+            Cyber Terminal
+          </h3>
 
           <p>
             En interaktiv terminal med retro-futuristisk
             design og hacker-inspirert brukergrensesnitt.
           </p>
 
-          <a href="#">ENTER PROJECT →</a>
+          <a href="#">
+            ENTER PROJECT →
+          </a>
+
         </article>
 
         <article class="project">
-          <div class="project-number">PROJECT_003</div>
 
-          <h3>Night City</h3>
+          <div class="project-number">
+            PROJECT_003
+          </div>
+
+          <h3>
+            Night City
+          </h3>
 
           <p>
             Et eksperimentelt prosjekt med neon,
             animasjoner og en mørk cyberpunk-atmosfære.
           </p>
 
-          <a href="#">ENTER PROJECT →</a>
+          <a href="#">
+            ENTER PROJECT →
+          </a>
+
         </article>
 
       </div>
 
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
 
-      <h2 class="section-title">ABOUT</h2>
+      <h2 class="section-title">
+        ABOUT
+      </h2>
 
       <div class="terminal">
 
@@ -544,40 +991,49 @@
         </div>
 
         <p>
-          <span class="command">></span> Loading profile...
+          <span class="command">></span>
+          <span class="typing">
+            Loading profile...
+          </span>
         </p>
 
         <p>
-          <span class="command">></span> Name: Sug Meg
+          <span class="command">></span>
+          Name: Sug Meg
         </p>
 
         <p>
-          <span class="command">></span> Status: ONLINE
+          <span class="command">></span>
+          Status: ONLINE
         </p>
 
         <p>
-          <span class="command">></span> Location: NIGHT CITY
+          <span class="command">></span>
+          Location: NIGHT CITY
         </p>
 
         <p>
-          <span class="command">></span> Mission:
-          Build the future.
+          <span class="command">></span>
+          Mission: Build the future.
         </p>
 
         <p>
-          <span class="command">></span> Connection:
-          SECURE
+          <span class="command">></span>
+          Connection: SECURE
         </p>
 
       </div>
 
     </section>
 
+    <!-- CONTACT -->
     <section id="contact">
 
       <div class="contact">
 
-        <h2>ESTABLISH CONNECTION</h2>
+        <h2>
+          ESTABLISH CONNECTION
+        </h2>
 
         <p>
           Klar for å koble deg til?
@@ -597,7 +1053,10 @@
   </main>
 
   <footer>
-    &lt;/&gt; CYBER//2077 — SYSTEM ONLINE — © 2026
+    &lt;/&gt;
+    CYBER//2077 —
+    SYSTEM ONLINE —
+    © 2026
   </footer>
 
 </body>
