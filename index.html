@@ -1340,6 +1340,108 @@ section {
   }
 }
 
+/* =====================================================
+   INTERACTIVE TERMINAL
+====================================================== */
+
+.terminal-body {
+  max-height: 480px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.02);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 12px;
+
+  color: var(--green);
+
+  font-family: var(--font-mono);
+}
+
+.terminal-prompt {
+  color: var(--green);
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 8px rgba(57,255,136,.5);
+}
+
+#terminalInput {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--cyan);
+
+  font-family: var(--font-mono);
+  font-size: inherit;
+
+  caret-color: var(--green);
+}
+
+#terminalInput::placeholder {
+  color: var(--dark-muted);
+}
+
+.terminal-command {
+  color: var(--cyan);
+}
+
+.terminal-error {
+  color: #ff375f;
+
+  text-shadow:
+    0 0 8px rgba(255,55,95,.4);
+}
+
+.terminal-success {
+  color: var(--green);
+}
+
+.terminal-info {
+  color: var(--muted);
+}
+
+.terminal-output-line {
+  margin: 4px 0;
+
+  font-family: var(--font-mono);
+  line-height: 1.7;
+}
+
+.terminal-link {
+  color: var(--pink);
+  text-decoration: none;
+}
+
+.terminal-link:hover {
+  color: white;
+
+  text-shadow:
+    0 0 10px var(--pink);
+}
+
 /* =========================================================
    CONTACT
 ========================================================= */
@@ -2100,7 +2202,52 @@ footer span {
 
     </div>
 
-    <div class="terminal-body">
+  <div class="terminal-body" id="terminal">
+
+  <div id="terminalOutput">
+
+    <p class="terminal-line">
+      <span class="command">></span>
+      ./load_profile
+    </p>
+
+    <p class="terminal-line terminal-muted">
+      Loading encrypted profile...
+    </p>
+
+    <p class="terminal-line terminal-muted">
+      Access granted.
+    </p>
+
+    <br>
+
+    <p class="terminal-line">
+      <span class="command">></span>
+      Welcome to CYBER//2077.
+    </p>
+
+    <p class="terminal-line terminal-muted">
+      Type <span class="terminal-pink">help</span> to see available commands.
+    </p>
+
+  </div>
+
+  <form class="terminal-input-line" id="terminalForm">
+
+    <span class="terminal-prompt">root@cyber-terminal:~$</span>
+
+    <input
+      id="terminalInput"
+      type="text"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Terminal command"
+      placeholder="type a command..."
+    >
+
+  </form>
+
+</div>
 
       <p class="terminal-line">
         <span class="command">
@@ -2572,5 +2719,339 @@ setInterval(
 
   },
   3500
+);
+/* =====================================================
+   INTERACTIVE TERMINAL
+====================================================== */
+
+const terminal = document.getElementById("terminal");
+const terminalOutput = document.getElementById("terminalOutput");
+const terminalForm = document.getElementById("terminalForm");
+const terminalInput = document.getElementById("terminalInput");
+
+const terminalCommands = {
+
+  help: () => `
+    <div class="terminal-output-line terminal-success">
+      AVAILABLE COMMANDS:
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      help       → Show available commands
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      about      → Load user profile
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      skills     → Display system capabilities
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      projects   → Access project database
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      contact    → Establish connection
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      whoami     → Identify current user
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      status     → Check system status
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      date       → Display current date
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      clear      → Clear terminal
+    </div>
+  `,
+
+  about: () => `
+    <div class="terminal-output-line terminal-success">
+      USER PROFILE LOADED
+    </div>
+
+    <div class="terminal-output-line">
+      NAME:
+      <span class="terminal-pink">Sug Meg</span>
+    </div>
+
+    <div class="terminal-output-line">
+      STATUS:
+      <span class="terminal-success">ONLINE</span>
+    </div>
+
+    <div class="terminal-output-line">
+      LOCATION:
+      <span class="terminal-info">NIGHT CITY</span>
+    </div>
+
+    <div class="terminal-output-line">
+      MISSION:
+      <span class="terminal-info">BUILD THE FUTURE</span>
+    </div>
+
+    <div class="terminal-output-line">
+      CONNECTION:
+      <span class="terminal-success">SECURE</span>
+    </div>
+
+    <div class="terminal-output-line">
+      COFFEE:
+      <span class="terminal-pink">REQUIRED</span>
+    </div>
+  `,
+
+  skills: () => `
+    <div class="terminal-output-line terminal-success">
+      SYSTEM CAPABILITIES
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      HTML        [██████████████████░░] 92%
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      CSS         [█████████████████░░░] 88%
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      JAVASCRIPT  [███████████████░░░░░] 75%
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      UI / UX     [████████████████░░░░] 82%
+    </div>
+  `,
+
+  projects: () => `
+    <div class="terminal-output-line terminal-success">
+      PROJECT DATABASE
+    </div>
+
+    <div class="terminal-output-line">
+      [001] <span class="terminal-pink">Neon Network</span>
+    </div>
+
+    <div class="terminal-output-line">
+      [002] <span class="terminal-pink">Cyber Terminal</span>
+    </div>
+
+    <div class="terminal-output-line">
+      [003] <span class="terminal-pink">Night City</span>
+    </div>
+
+    <div class="terminal-output-line terminal-muted">
+      Redirecting to project database...
+    </div>
+  `,
+
+  contact: () => `
+    <div class="terminal-output-line terminal-success">
+      CONNECTION CHANNEL FOUND
+    </div>
+
+    <div class="terminal-output-line">
+      EMAIL:
+      <a
+        class="terminal-link"
+        href="mailto:sugen@kuk.no"
+      >
+        sugen@kuk.no
+      </a>
+    </div>
+
+    <div class="terminal-output-line terminal-muted">
+      Secure connection available.
+    </div>
+  `,
+
+  whoami: () => `
+    <div class="terminal-output-line">
+      USER:
+      <span class="terminal-pink">Sug Meg</span>
+    </div>
+
+    <div class="terminal-output-line">
+      ROLE:
+      <span class="terminal-info">Digital Creator</span>
+    </div>
+
+    <div class="terminal-output-line">
+      ACCESS:
+      <span class="terminal-success">AUTHORIZED</span>
+    </div>
+  `,
+
+  status: () => `
+    <div class="terminal-output-line terminal-success">
+      ● SYSTEM ONLINE
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      NETWORK: SECURE
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      UPLINK: STABLE
+    </div>
+
+    <div class="terminal-output-line terminal-info">
+      NIGHT CITY: CONNECTED
+    </div>
+  `,
+
+  date: () => `
+    <div class="terminal-output-line terminal-info">
+      ${new Date().toLocaleString("no-NO")}
+    </div>
+  `,
+
+  clear: () => {
+    terminalOutput.innerHTML = "";
+    return "";
+  }
+
+};
+
+
+/* =====================================================
+   RUN COMMAND
+====================================================== */
+
+function runTerminalCommand(command) {
+
+  const cleanCommand =
+    command.trim().toLowerCase();
+
+  if (!cleanCommand) return;
+
+
+  /* User command */
+
+  const commandLine =
+    document.createElement("p");
+
+  commandLine.className =
+    "terminal-output-line";
+
+  commandLine.innerHTML = `
+    <span class="terminal-success">
+      root@cyber-terminal:~$
+    </span>
+    <span class="terminal-command">
+      ${escapeHTML(command)}
+    </span>
+  `;
+
+  terminalOutput.appendChild(commandLine);
+
+
+  /* Clear */
+
+  if (cleanCommand === "clear") {
+
+    terminalOutput.innerHTML = "";
+
+    return;
+  }
+
+
+  /* Known command */
+
+  if (terminalCommands[cleanCommand]) {
+
+    const output =
+      document.createElement("div");
+
+    output.innerHTML =
+      terminalCommands[cleanCommand]();
+
+    terminalOutput.appendChild(output);
+
+  } else {
+
+    const error =
+      document.createElement("p");
+
+    error.className =
+      "terminal-output-line terminal-error";
+
+    error.textContent =
+      `Command not found: ${command}`;
+
+    terminalOutput.appendChild(error);
+
+    const hint =
+      document.createElement("p");
+
+    hint.className =
+      "terminal-output-line terminal-muted";
+
+    hint.innerHTML =
+      `Type <span class="terminal-pink">help</span> for available commands.`;
+
+    terminalOutput.appendChild(hint);
+  }
+
+
+  /* Scroll to bottom */
+
+  terminal.scrollTop =
+    terminal.scrollHeight;
+}
+
+
+/* =====================================================
+   TERMINAL FORM
+====================================================== */
+
+terminalForm.addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+    runTerminalCommand(
+      terminalInput.value
+    );
+
+    terminalInput.value = "";
+
+  }
+);
+
+
+/* =====================================================
+   ESCAPE HTML
+====================================================== */
+
+function escapeHTML(value) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = value;
+
+  return div.innerHTML;
+}
+
+
+/* =====================================================
+   CLICK TERMINAL TO FOCUS
+====================================================== */
+
+terminal.addEventListener(
+  "click",
+  () => {
+    terminalInput.focus();
+  }
 );
 </script> </body> </html>
