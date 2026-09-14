@@ -2081,7 +2081,7 @@ footer span {
     </h2>
 
     <span class="section-number">
-      USER // INTERACTIVE TERMINAL
+      USER // PROFILE
     </span>
 
   </div>
@@ -2100,253 +2100,23 @@ footer span {
 
     </div>
 
-    <div
-      class="terminal-body"
-      id="terminalBody"
-      role="log"
-      aria-live="polite"
-    >
+    <div class="terminal-body">
 
-      <div class="terminal-output">
-
-        <p class="terminal-line">
-          <span class="command">></span>
-          ./load_profile
-        </p>
-
-        <p class="terminal-line terminal-muted">
-          Loading encrypted profile...
-        </p>
-
-        <br>
-
-        <p class="terminal-line terminal-pink">
-          ACCESS GRANTED.
-        </p>
-
-        <p class="terminal-line terminal-muted">
-          Welcome to CYBER//2077 terminal.
-        </p>
-
-        <p class="terminal-line terminal-muted">
-          Type <span class="terminal-cyan">help</span> to see available commands.
-        </p>
-
-      </div>
-
-      <!-- INPUT -->
-      <div class="terminal-input-line">
-
-        <span class="terminal-line">
-          <span class="command">root@cyber:~$</span>
+      <p class="terminal-line">
+        <span class="command">
+          >
         </span>
-
-        <input
-          type="text"
-          id="terminalInput"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Terminal input"
-          autofocus
-        >
-
-        <span class="terminal-cursor"></span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<style>
-
-/* =====================================================
-   INTERACTIVE TERMINAL
-====================================================== */
-
-.terminal-input-line {
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  margin-top: 8px;
-}
-
-.terminal-input-line input {
-  flex: 1;
-
-  min-width: 0;
-
-  border: none;
-  outline: none;
-
-  background: transparent;
-
-  color: var(--green);
-
-  font-family: var(--font-mono);
-
-  font-size: inherit;
-
-  caret-color: var(--green);
-}
-
-.terminal-cyan {
-  color: var(--cyan);
-
-  text-shadow:
-    0 0 8px var(--cyan);
-}
-
-.terminal-error {
-  color: #ff375f;
-
-  text-shadow:
-    0 0 8px #ff375f;
-}
-
-.terminal-success {
-  color: var(--green);
-
-  text-shadow:
-    0 0 8px var(--green);
-}
-
-.terminal-command {
-  color: var(--cyan);
-}
-
-.terminal-output {
-  margin-bottom: 8px;
-}
-
-.terminal-body {
-  cursor: text;
-}
-
-</style>
-
-<script>
-
-/* =====================================================
-   INTERACTIVE TERMINAL
-====================================================== */
-
-const terminalBody =
-  document.getElementById("terminalBody");
-
-const terminalInput =
-  document.getElementById("terminalInput");
-
-
-/* Focus terminal when clicking anywhere inside it */
-
-terminalBody.addEventListener(
-  "click",
-  () => {
-    terminalInput.focus();
-  }
-);
-
-
-/* =====================================================
-   COMMAND SYSTEM
-====================================================== */
-
-function runCommand(command) {
-
-  const cleanCommand =
-    command.trim().toLowerCase();
-
-  const output =
-    document.createElement("div");
-
-  output.className =
-    "terminal-output";
-
-  /* -----------------------------
-     HELP
-  ----------------------------- */
-
-  if (cleanCommand === "help") {
-
-    output.innerHTML = `
-
-      <p class="terminal-line">
-        Available commands:
+        ./load_profile
       </p>
 
       <p class="terminal-line terminal-muted">
-        ─────────────────────────
+        Loading encrypted profile...
       </p>
+
+      <br>
 
       <p class="terminal-line">
-        <span class="terminal-cyan">help</span>
-        — Show commands
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">whoami</span>
-        — Display profile
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">skills</span>
-        — Display capabilities
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">status</span>
-        — Check system status
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">contact</span>
-        — Display contact information
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">date</span>
-        — Display current date
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">clear</span>
-        — Clear terminal
-      </p>
-
-      <p class="terminal-line">
-        <span class="terminal-cyan">matrix</span>
-        — Enter the matrix
-      </p>
-
-    `;
-
-  }
-
-  /* -----------------------------
-     WHOAMI
-  ----------------------------- */
-
-  else if (
-    cleanCommand === "whoami"
-  ) {
-
-    output.innerHTML = `
-
-      <p class="terminal-line">
-        USER PROFILE
-      </p>
-
-      <p class="terminal-line terminal-muted">
-        ─────────────────────────
-      </p>
-
-      <p class="terminal-line">
+        <span class="command">></span>
         NAME:
         <span class="terminal-pink">
           Sug Meg
@@ -2354,129 +2124,48 @@ function runCommand(command) {
       </p>
 
       <p class="terminal-line">
+        <span class="command">></span>
         STATUS:
-        <span class="terminal-success">
-          ONLINE
-        </span>
+        ONLINE
       </p>
 
       <p class="terminal-line">
+        <span class="command">></span>
         LOCATION:
         NIGHT CITY
       </p>
 
       <p class="terminal-line">
+        <span class="command">></span>
         MISSION:
         BUILD THE FUTURE
       </p>
 
       <p class="terminal-line">
+        <span class="command">></span>
         CONNECTION:
         SECURE
       </p>
 
       <p class="terminal-line">
+        <span class="command">></span>
         COFFEE:
         REQUIRED
-      </p>
-
-    `;
-
-  }
-
-  /* -----------------------------
-     SKILLS
-  ----------------------------- */
-
-  else if (
-    cleanCommand === "skills"
-  ) {
-
-    output.innerHTML = `
-
-      <p class="terminal-line">
-        LOADING SKILL MATRIX...
       </p>
 
       <br>
 
       <p class="terminal-line">
-        HTML
-        <span class="terminal-cyan">
-          [██████████████████] 92%
-        </span>
+        <span class="command">></span>
+        _
+        <span class="terminal-cursor"></span>
       </p>
 
-      <p class="terminal-line">
-        CSS
-        <span class="terminal-cyan">
-          [█████████████████░] 88%
-        </span>
-      </p>
+    </div>
 
-      <p class="terminal-line">
-        JAVASCRIPT
-        <span class="terminal-cyan">
-          [██████████████░░░░] 75%
-        </span>
-      </p>
+  </div>
 
-      <p class="terminal-line">
-        UI / UX
-        <span class="terminal-cyan">
-          [████████████████░░] 82%
-        </span>
-      </p>
-
-    `;
-
-  }
-
-  /* -----------------------------
-     STATUS
-  ----------------------------- */
-
-  else if (
-    cleanCommand === "status"
-  ) {
-
-    output.innerHTML = `
-
-      <p class="terminal-line">
-        SYSTEM STATUS
-      </p>
-
-      <p class="terminal-line terminal-success">
-        ● ALL SYSTEMS OPERATIONAL
-      </p>
-
-      <p class="terminal-line terminal-muted">
-        Network: SECURE
-      </p>
-
-      <p class="terminal-line terminal-muted">
-        Uplink: STABLE
-      </p>
-
-      <p class="terminal-line terminal-muted">
-        Firewall: ACTIVE
-      </p>
-
-      <p class="terminal-line terminal-muted">
-        Threat level: LOW
-      </p>
-
-    `;
-
-  }
-
-  /* -----------------------------
-     CONTACT
-  ----------------------------- */
-
-  else if (
-    cleanCommand === "contact"
-  )
+</section>
 
 <!-- =====================================================
      CONTACT
